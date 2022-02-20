@@ -14,17 +14,17 @@ function createMap(){
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(map);
 
-    var marker = L.marker([51.5, -0.09]).addTo(map);
-    var circle = L.circle([51.508, -0.11], {
+    var marker = L.marker([43.075850, -89.401556]).addTo(map);
+    var circle = L.circle([43.088988, -89.416372], {
         color: 'red',
         fillColor: '#f03',
         fillOpacity: 0.5,    radius: 500
     }).addTo(map);
     
     var polygon = L.polygon([
-        [51.509, -0.08],
-        [51.503, -0.06],
-        [51.51, -0.047]
+        [43.076214, -89.384191],
+        [43.073181, -89.386228],
+        [43.074638, -89.382195]
     ]).addTo(map);
 
     marker.bindPopup("<strong>Geog575!</strong><br />This course is so challenging.").openPopup();
@@ -32,7 +32,7 @@ function createMap(){
     polygon.bindPopup("Don't be upset if you don't understand some concepts.");
 
     var popup = L.popup()
-    .setLatLng([51.5, -0.09])
+    .setLatLng([43.070585, -89.398706])
     .setContent("Think twice before taking this course.")
     .openOn(map);
     
@@ -70,15 +70,15 @@ function onEachFeature(feature, layer) {
 //function to retrieve the data and place it on the map
 function getData(){
     //load the data
-    fetch("data/MegaCities.geojson")
+    fetch("data/AIDSDiagnosesRate1519.geojson")
         .then(function(response){
             return response.json();
         })
         .then(function(json){
             //create marker options
             var geojsonMarkerOptions = {
-                radius: 8,
-                fillColor: "#ff7800",
+                radius: 6,
+                fillColor: "#3182bd",
                 color: "#000",
                 weight: 1,
                 opacity: 1,
