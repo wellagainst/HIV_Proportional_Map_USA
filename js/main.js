@@ -64,7 +64,7 @@ function calculateMinValue(data){
         for(var year = 2015; year <= 2019; year+=1){
             
               //get HIV Diagnoses rate for current year
-              var value = state.properties["NewDiagnosesStateRate"+ String(year)];
+              var value = state.properties["NewDiagnosesStateRate_"+ String(year)];
               
               
               //add value to array
@@ -95,7 +95,7 @@ function calcPropRadius(attValue) {
 function pointToLayer(feature, latlng){
     
     //Determine which attribute to visualize with proportional symbols
-    var attribute = "NewDiagnosesStateRate2019";
+    var attribute = "NewDiagnosesStateRate_2019";
 
     //create marker options
     var options = {
@@ -117,16 +117,19 @@ function pointToLayer(feature, latlng){
 
     //build popup content string
     var popupContent = "<p><b>State:</b> " + feature.properties.State + "</p>";
-    console.log(popupContent)
+    var year = attribute.split("_")[1];
+    popupContent += "<p><b>HIV newly diagnoses rate in " + year + ":</b> " + feature.properties[attribute] + " %</p>";
     //bind the popup to the circle marker
-    layer.bindPopup(popupContent);
+    layer.bindPopup(popupContent,{
+        offset: new L.Point(0,-options.radius) 
+    });
     
     //return the circle marker to the L.geoJson pointToLayer option
     return layer;
 };
 
 //Add circle markers for point features to the map
-function createPropSymbols(data, map){
+function createPropSymbols(data){
     
     //create a Leaflet GeoJSON layer and add it to the map
     L.geoJson(data, {
@@ -134,6 +137,22 @@ function createPropSymbols(data, map){
         
     }).addTo(map);
 }
+
+
+//Step 1: Create new sequence controls
+function createSequenceControls(){
+    //create range input element (slider)
+    var slider = "<input class='range-slider' type='range'></input>";
+    document.querySelector("#panel").insertAdjacentHTML('beforeend',slider);
+    //set slider attributes
+    document.querySelector(".range-slider").max = 4;
+    document.querySelector(".range-slider").min = 0;
+    document.querySelector(".range-slider").value = 0;
+    document.querySelector(".range-slider").step = 1;
+    document.querySelector('#panel').insertAdjacentHTML('beforeend','<button class="step" id="reverse">Reverse</button>');
+    document.querySelector('#panel').insertAdjacentHTML('beforeend','<button class="step" id="forward">Forward</button>');
+};
+
 
 //function to retrieve the data and place it on the map
 function getData(){
@@ -148,7 +167,7 @@ function getData(){
             minValue = calculateMinValue(json);
             //call function to create proportional symbols
             createPropSymbols(json);
-            
+            createSequenceControls();
         })
 };
 
