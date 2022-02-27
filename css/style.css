@@ -8,8 +8,8 @@ body{
     display: inline-block;
 }
 #panel {    
-    width: 25%;    
-    padding: 20px;
+    width: 50%;    
+    padding: 40px;
     display: inline-block;
     vertical-align: top;
     text-align: center;
@@ -20,7 +20,7 @@ body{
 }  
     
 .step {  
-    width: 20%;  
+    width: 40%;  
 }  
 #forward {
     float: right;
