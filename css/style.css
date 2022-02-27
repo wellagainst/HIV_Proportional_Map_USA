@@ -2,25 +2,24 @@ body{
     margin:0;
 }
 #map{
-    
-    height: 400px;    
-    width: 80%;
+    height: 600px;
+    width:100vw;
     display: inline-block;
 }
 #panel {    
-    width: 50%;    
+    width: 40%;    
     padding: 40px;
     display: inline-block;
     vertical-align: top;
     text-align: center;
-    line-height: 42px;
+    line-height: 62px;
 }
 .range-slider {  
-    width: 55%;  
+    width: 50%;  
 }  
     
 .step {  
-    width: 40%;  
+    width: 50%;  
 }  
 #forward {
     float: right;
@@ -29,11 +28,6 @@ body{
     float: left;  
 }
 
-
-#mapid{
-    height:100vh;
-    width:100vw;
-}
 .leaflet-popup-content p {
     margin: 0.2em 0;
 }

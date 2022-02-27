@@ -6,8 +6,8 @@ var minValue;
 function createMap(){
     //create the map
     map = L.map('map', {
-        center: [0, 0],
-        zoom: 2
+        center: [40, -99],
+        zoom: 3
     });
 
     //add OSM base tilelayer
