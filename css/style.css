@@ -8,7 +8,7 @@ body{
 }
 
 .sequence-control-container {  
-    width: 350px;  
+    width: 500px;  
     height: 30px;  
     background-color: rgba(255,255,255,0.8);  
     padding: 10px;  
@@ -18,12 +18,13 @@ body{
 }  
 
 .legend-control-container {
-    width: 350px;  
-    height: 30px;  
+    width: 130px;  
+    height: 150px;  
     background-color: rgba(255,255,255,0.8);  
     padding: 10px;  
     line-height: 45px;  
     text-align: center;  
+    line-height: 0px;
     border: solid gray 1px;
 }
 
@@ -31,9 +32,7 @@ body{
     width: 250px;  
 }  
     
-.step {  
-    width: 40px;  
-}  
+
 #forward {
     float: right;
     

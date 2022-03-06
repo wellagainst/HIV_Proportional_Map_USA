@@ -16,28 +16,6 @@ function createMap(){
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(map);
 
-    var marker = L.marker([43.075850, -89.401556]).addTo(map);
-    var circle = L.circle([43.088988, -89.416372], {
-        color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.5,    radius: 500
-    }).addTo(map);
-    
-    var polygon = L.polygon([
-        [43.076214, -89.384191],
-        [43.073181, -89.386228],
-        [43.074638, -89.382195]
-    ]).addTo(map);
-
-    marker.bindPopup("<strong>Geog575!</strong><br />This course is so challenging.").openPopup();
-    circle.bindPopup("And it takes so much time.");
-    polygon.bindPopup("Don't be upset if you don't understand some concepts.");
-
-    var popup = L.popup()
-    .setLatLng([43.070585, -89.398706])
-    .setContent("Think twice before taking this course.")
-    .openOn(map);
-    
     var popup = L.popup();
 
     function onMapClick(e) {
@@ -87,7 +65,7 @@ function calcPropRadius(attValue) {
     //constant factor adjusts symbol sizes evenly
     var minRadius = 5;
     //Flannery Apperance Compensation formula
-    var radius = 1.0083 * Math.pow(attValue/minValue,0.5715) * minRadius
+    var radius = 1.0083 * Math.pow(attValue/dataStats.min,0.5715) * minRadius
     
     return radius;
 };
@@ -219,9 +197,9 @@ function createLegend(attributes){
         onAdd: function () {
             // create the control container with a particular class name
             var container = L.DomUtil.create('div', 'legend-control-container');
-            container.innerHTML = '<p class="temporalLegend">HIV newly diagnoses rate in <span class="year">2015</span></p>';
+            container.innerHTML = '<p class="temporalLegend">HIV rate in <span class="year">2015</span></p>';
             //Step 1: start attribute legend svg string
-            var svg = '<svg id="attribute-legend" width="160px" height="60px">';
+            var svg = '<svg id="attribute-legend" width="160px" height=60px">';
             //array of circle names to base loop on
             var circles = ["max", "mean", "min"];
 
@@ -229,9 +207,13 @@ function createLegend(attributes){
             for (var i=0; i<circles.length; i++){
                 //Step 3: assign the r and cy attributes  
                 var radius = calcPropRadius(dataStats[circles[i]]);  
-                var cy = 59 - radius;
+                var cy = 130 - radius;
                 //circle string
-                svg += '<circle class="legend-circle" id="' + circles[i] + '" r="' + radius + '"cy="' + cy + '" fill="#F47821" fill-opacity="0.8" stroke="#000000" cx="30"/>';
+                svg += '<circle class="legend-circle" id="' + circles[i] + '" r="' + radius + '"cy="' + cy + '" fill="#F47821" fill-opacity="0.8" stroke="#000000" cx="65"/>';
+                //evenly space out labels            
+                var textY = i * 40 + 40;
+                //text string            
+                svg += '<text id="' + circles[i] + '-text" x="60" y="' + textY + '">' + Math.round(dataStats[circles[i]]*100)/100 + " %" + '</text>';
             };
 
             //close svg string
@@ -293,11 +275,10 @@ function processData(data){
         };
     };
 
-    //check result
-    console.log(attributes);
-
     return attributes;
 };
+
+
 
 //function to retrieve the data and place it on the map
 function getData(){
@@ -308,7 +289,8 @@ function getData(){
         })
         .then(function(json){
             var attributes = processData(json);
-            calcStats(response);
+            calcStats(json);
+            createLegend(attributes);
             //call function to create proportional symbols
             createPropSymbols(json, attributes);
             createSequenceControls(attributes);
