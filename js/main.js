@@ -57,6 +57,7 @@ function calcStats(data){
     //calculate meanValue
     var sum = allValues.reduce(function(a, b){return a+b;});
     dataStats.mean = sum/ allValues.length;
+    
 }
 
 
@@ -174,6 +175,7 @@ function createSequenceControls(attributes){
             //Step 8: update slider
             document.querySelector('.range-slider').value = index;
             updatePropSymbols(attributes[index]);
+            
         })
         
     })
@@ -197,6 +199,7 @@ function createLegend(attributes){
         onAdd: function () {
             // create the control container with a particular class name
             var container = L.DomUtil.create('div', 'legend-control-container');
+        
             container.innerHTML = '<p class="temporalLegend">HIV rate in <span class="year">2015</span></p>';
             //Step 1: start attribute legend svg string
             var svg = '<svg id="attribute-legend" width="160px" height=60px">';
@@ -246,10 +249,17 @@ function updatePropSymbols(attribute){
             //update popup content            
             popup = layer.getPopup();            
             popup.setContent(popupContent.formatted).update();
+
+            var year = attribute.split("_")[1];
+            document.querySelector(".year").innerHTML = year;
         };
     });
 };
 
+function updateLegend(attribute){
+    var year = attribute.split("_")[1];
+    document.querySelector(".year").innerHTML = year;
+}
 
 function PopupContent(properties, attribute){
     this.properties = properties;
