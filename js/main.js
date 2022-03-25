@@ -4,14 +4,26 @@ var map;
 var dataStats = {};
 var minValue;
 
-//create the title and the button for the Olympics website
+
+//create the title 
 var h1 = document.createElement('h1');
-h1.innerHTML = "HIV Newly Diagnoses Rate 2014-2019";
+h1.innerHTML = "HIV Newly Diagnoses Rate in the USA 2015-2019";
 h1.id = "title";
 var div = document.getElementById("others");
 div.appendChild(h1);
 
+//create the context info for the data 
+var p1 = document.createElement('p1');
+p1.innerHTML = "Data Definition: The new diagnoses HIV data reflect people newly diagnosed with HIV infection, defined as a diagnosis of HIV infection regardless of the stage of disease, and refers to all people with a diagnosis of HIV infection during a given one-year time period (i.e. 2019)";
+p1.id = "paragragh1";
+var div = document.getElementById("context");
+div.appendChild(p1);
 
+var p2 = document.createElement('p2');
+p2.innerHTML = "Data Source: Data are collected by state and local health departments, and de-duplicated and processed by the U.S. Centers for Disease Control and Prevention (CDC) to meet data quality standards for comparability and reliability.";
+p2.id = "paragragh2";
+var div = document.getElementById("context");
+div.appendChild(p2);
 
 //function to instantiate the Leaflet map
 function createMap(){
@@ -20,11 +32,6 @@ function createMap(){
         center: [40, -99],
         zoom: 3
     });
-
-    //add OSM base tilelayer
-    //L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        //attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-    //}).addTo(map);
 
     //add OSM base tilelayer
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
@@ -114,11 +121,11 @@ function pointToLayer(feature, latlng, attributes){
 
     //create marker options
     var options = {
-        fillColor: "#ff7800",
+        fillColor: "#f37a65",
         color: "#000",
         weight: 1,
         opacity: 1,
-        fillOpacity: 0.8
+        fillOpacity: 0.7
     };
 
     //For each feature, determine its value for the selected attribute
@@ -244,7 +251,7 @@ function createLegend(attributes){
                 var radius = calcPropRadius(dataStats[circles[i]]);  
                 var cy = 130 - radius;
                 //circle string
-                svg += '<circle class="legend-circle" id="' + circles[i] + '" r="' + radius + '"cy="' + cy + '" fill="#F47821" fill-opacity="0.8" stroke="#000000" cx="65"/>';
+                svg += '<circle class="legend-circle" id="' + circles[i] + '" r="' + radius + '"cy="' + cy + '" fill="#f37a65" fill-opacity="0.8" stroke="#000000" cx="65"/>';
                 //evenly space out labels            
                 var textY = i * 40 + 40;
                 //text string            

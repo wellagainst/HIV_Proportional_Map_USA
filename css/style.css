@@ -45,3 +45,22 @@ body{
 .leaflet-popup-content p {
     margin: 0.2em 0;
 }
+
+h1{
+    height: 10%;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+    width: 100%;
+    text-shadow: 1px 1px 1px whitesmoke,
+               2px 2px 1px whitesmoke;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    
+  }
+
+p1{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+}
+
+p2{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+}
