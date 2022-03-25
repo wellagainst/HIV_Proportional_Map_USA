@@ -3,6 +3,16 @@
 var map;
 var dataStats = {};
 var minValue;
+
+//create the title and the button for the Olympics website
+var h1 = document.createElement('h1');
+h1.innerHTML = "HIV Newly Diagnoses Rate 2014-2019";
+h1.id = "title";
+var div = document.getElementById("others");
+div.appendChild(h1);
+
+
+
 //function to instantiate the Leaflet map
 function createMap(){
     //create the map
@@ -12,7 +22,12 @@ function createMap(){
     });
 
     //add OSM base tilelayer
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    //}).addTo(map);
+
+    //add OSM base tilelayer
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(map);
 
@@ -29,6 +44,23 @@ function createMap(){
 
     //call getData function
     getData(map);
+};
+
+//function to retrieve the data and place it on the map
+function getData(){
+    //load the data
+    fetch("data/HIVDiagnosesRate1519.geojson")
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(json){
+            var attributes = processData(json);
+            calcStats(json);
+            createLegend(attributes);
+            //call function to create proportional symbols
+            createPropSymbols(json, attributes);
+            createSequenceControls(attributes);
+        })
 };
 
 
@@ -290,21 +322,6 @@ function processData(data){
 
 
 
-//function to retrieve the data and place it on the map
-function getData(){
-    //load the data
-    fetch("data/HIVDiagnosesRate1519.geojson")
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(json){
-            var attributes = processData(json);
-            calcStats(json);
-            createLegend(attributes);
-            //call function to create proportional symbols
-            createPropSymbols(json, attributes);
-            createSequenceControls(attributes);
-        })
-};
+
 
 document.addEventListener('DOMContentLoaded',createMap)
